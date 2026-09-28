@@ -1,0 +1,744 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>APEX — осанка, сон и привычки</title>
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" href="assets/hero.mp4" as="video" type="video/mp4">
+<link rel="preload" href="assets/SUBJ-001.png" as="image">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700;800;900&family=PT+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500;700&display=swap">
+<style>
+:root{
+  --bg:#f6f4ee; --paper:#fff; --ink:#0a0a0a; --ink-2:#222; --mid:#5b5b60; --dim:#9b9b9f;
+  --line:#dad7cd; --line-2:#e7e4dc;
+  --hot:#e0431a; --hot-dim:#fde9e1;
+  --green:#1f5740; --green-dim:#e8f0ec;
+  --yellow:#ffe14a;
+  --display:'Golos Text',sans-serif;
+  --serif:'PT Serif',serif;
+  --sans:'Golos Text',sans-serif;
+  --mono:'JetBrains Mono',monospace;
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html,body{background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:15.5px;line-height:1.55;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+button{font:inherit;cursor:pointer;border:none;background:none;color:inherit}
+img,svg{display:block;max-width:100%}
+::selection{background:var(--ink);color:var(--yellow)}
+.wrap{max-width:1320px;margin:0 auto;padding:0 28px}
+
+/* ============ NAV ============ */
+.nav{position:sticky;top:0;z-index:50;background:rgba(246,244,238,0.95);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+.nav-i{max-width:1320px;margin:0 auto;padding:14px 28px;display:grid;grid-template-columns:auto 1fr auto;gap:28px;align-items:center}
+.brand{display:flex;align-items:center;gap:10px;font-family:var(--display);font-size:18px;letter-spacing:.02em;color:var(--ink)}
+.brand .sq{width:14px;height:14px;background:var(--hot)}
+.nav-ul{display:flex;gap:26px;justify-content:center;font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--mid)}
+.nav-ul a:hover{color:var(--ink)}
+.nav-cta{
+  background:var(--ink);color:var(--bg);padding:11px 18px;
+  font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
+  display:inline-flex;align-items:center;gap:10px;
+  transition:transform .15s,background .15s;
+}
+.nav-cta:hover{background:var(--hot);transform:translateY(-1px)}
+.nav-cta .arr{display:inline-flex;align-items:center;justify-content:center;width:18px;height:18px;background:var(--hot);color:var(--ink);border-radius:50%;font-size:11px}
+.nav-cta:hover .arr{background:var(--bg);color:var(--hot)}
+
+/* ============ HERO ============ */
+.hero{padding:64px 0 64px;position:relative;border-bottom:1px solid var(--line)}
+.hero-meta{
+  display:grid;grid-template-columns:auto 1fr auto;gap:28px;align-items:center;
+  font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--mid);
+  padding-bottom:36px;border-bottom:1px solid var(--line);margin-bottom:48px;
+}
+.hero-meta .ml{display:flex;gap:14px;align-items:center}
+.hero-meta .ml span:not(:last-child)::after{content:'·';margin-left:14px;color:var(--dim)}
+.hero-meta .vol{justify-self:center;font-family:var(--serif);font-style:italic;font-size:14px;color:var(--ink);letter-spacing:0;text-transform:none}
+.hero-meta .ver{color:var(--ink)}
+
+.hero-grid{display:grid;grid-template-columns:1.35fr 1fr;gap:56px;align-items:start}
+
+.hero-h1{
+  font-family:var(--display);font-weight:900;
+  font-size:clamp(64px,10.2vw,164px);line-height:.86;letter-spacing:-0.04em;
+  text-wrap:balance;
+}
+.hero-h1 .strike{
+  position:relative;display:inline;
+  color:var(--mid);
+  text-decoration:line-through;
+  text-decoration-color:var(--ink);
+  text-decoration-thickness:5px;
+  text-decoration-skip-ink:none;
+}
+.hero-h1 .strike::after{content:none}
+.hero-h1 .serif{
+  font-family:var(--serif);font-weight:400;font-style:italic;
+  font-size:1.05em;letter-spacing:-.015em;color:var(--hot);
+  display:inline-block;
+}
+.hero-h1 .underline{position:relative;display:inline-block}
+.hero-h1 .underline::after{
+  content:'';position:absolute;left:0;right:0;bottom:0.04em;height:14px;
+  background:var(--yellow);z-index:-1;
+}
+
+.hero-lede{
+  margin-top:32px;font-size:20px;line-height:1.45;color:var(--ink-2);max-width:52ch;font-weight:500;
+}
+.hero-lede strong{background:var(--yellow);padding:1px 6px;color:var(--ink);font-weight:600}
+
+.hero-cta{margin-top:36px;display:flex;gap:14px;align-items:center;flex-wrap:wrap}
+.btn-primary{
+  background:var(--ink);color:var(--bg);padding:18px 26px;
+  font-family:var(--mono);font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
+  display:inline-flex;align-items:center;gap:12px;
+  transition:transform .15s,background .15s;
+}
+.btn-primary:hover{transform:translateY(-2px);background:var(--hot)}
+.btn-primary .arr{width:26px;height:26px;background:var(--hot);color:var(--ink);border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-weight:900;font-size:13px;transition:background .15s,color .15s}
+.btn-primary:hover .arr{background:var(--bg);color:var(--hot)}
+.btn-ghost{
+  color:var(--ink-2);padding:18px 4px;
+  font-family:var(--mono);font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;
+  border-bottom:2px solid var(--ink);transition:color .15s;
+}
+.btn-ghost:hover{color:var(--hot);border-color:var(--hot)}
+.cta-note{font-family:var(--mono);font-size:11px;letter-spacing:.06em;color:var(--mid);text-transform:uppercase}
+
+.hero-caps{display:flex;gap:20px;margin-top:32px;flex-wrap:wrap;font-family:var(--mono);font-size:11.5px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--mid)}
+.hero-caps span{display:inline-flex;gap:8px;align-items:center}
+.hero-caps span::before{content:'✕';color:var(--hot);font-weight:900}
+.hero-caps .ok{color:var(--ink)}
+.hero-caps .ok::before{content:'✓';color:var(--green)}
+
+/* hero proof card */
+.proof-card{
+  background:var(--paper);border:1px solid var(--ink);
+  box-shadow:8px 8px 0 var(--ink);position:relative;
+}
+.proof-card::before{
+  content:'ПРОФИЛЬ';position:absolute;top:-12px;left:20px;
+  background:var(--hot);color:var(--paper);padding:4px 10px;border:1px solid var(--ink);
+  font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:.14em;
+}
+.proof-card::after{
+  content:'';position:absolute;top:0;right:0;width:48px;height:48px;
+  background:linear-gradient(225deg,transparent 50%,var(--line-2) 50%);
+}
+.pc-video{position:relative;aspect-ratio:1/1;background:#000;overflow:hidden;border-bottom:1px dashed var(--line)}
+.pc-video video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:contrast(1.05) saturate(.9)}
+.pc-video-lbl{position:absolute;top:14px;font-family:var(--mono);font-size:10.5px;font-weight:700;letter-spacing:.14em;padding:5px 10px;border:1px solid var(--ink);text-transform:uppercase;box-shadow:2px 2px 0 var(--ink)}
+.pc-video-lbl.bef{left:14px;background:rgba(245,242,234,.95);color:var(--ink-2)}
+.pc-video-lbl.aft{right:14px;background:var(--hot);color:var(--paper)}
+.pc-head{padding:24px 24px 14px;border-bottom:1px dashed var(--line)}
+.pc-head .id{font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:.14em;color:var(--mid);text-transform:uppercase}
+.pc-head h3{
+  font-family:var(--serif);font-weight:400;font-style:italic;font-size:34px;line-height:1.05;
+  letter-spacing:-.01em;color:var(--ink);margin-top:6px;
+}
+.pc-head h3 .num{font-style:normal;color:var(--hot);font-family:var(--display);font-size:.92em}
+.pc-body{padding:8px 24px 20px}
+.pc-row{display:grid;grid-template-columns:120px 1fr;padding:10px 0;border-bottom:1px dashed var(--line-2);font-family:var(--mono);font-size:13px;align-items:baseline}
+.pc-row:last-child{border-bottom:0}
+.pc-row .k{font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--mid);font-weight:700}
+.pc-row .v{color:var(--ink);font-weight:500}
+.pc-row .v em{font-family:var(--serif);font-style:italic;color:var(--hot);font-size:15px}
+.pc-final{
+  display:flex;justify-content:space-between;align-items:baseline;
+  background:var(--ink);color:var(--paper);padding:18px 24px;
+}
+.pc-final .l{font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--yellow)}
+.pc-final .v{font-family:var(--display);font-size:64px;line-height:1;color:var(--hot);letter-spacing:-.03em}
+
+/* ============ Data strip ============ */
+.strip{
+  padding:32px 0;border-bottom:1px solid var(--line);background:var(--paper);
+}
+.strip-row{display:grid;grid-template-columns:repeat(4,1fr);gap:0}
+.strip-cell{padding:8px 28px;border-left:1px solid var(--line)}
+.strip-cell:first-child{border-left:0}
+.strip-cell .n{font-family:var(--display);font-size:48px;line-height:1;letter-spacing:-.025em}
+.strip-cell .n .ac{color:var(--hot)}
+.strip-cell .n .small{font-family:var(--serif);font-style:italic;font-weight:400;font-size:.55em;color:var(--mid);margin-left:6px;letter-spacing:0}
+.strip-cell .l{font-family:var(--mono);font-size:10.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--mid);margin-top:10px}
+
+/* ============ SECTION META ============ */
+.sec{padding:96px 0;border-bottom:1px solid var(--line)}
+.sec.paper{background:var(--paper)}
+.sec.dark{background:var(--ink);color:var(--bg);border-bottom:0}
+.sec-head{display:grid;grid-template-columns:auto 1fr;gap:48px;margin-bottom:56px;align-items:end}
+.sec-kick{font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--hot);display:flex;gap:14px;align-items:center;padding-top:10px}
+.sec-kick .idx{
+  font-family:var(--serif);font-style:italic;font-weight:400;font-size:54px;color:var(--hot);
+  letter-spacing:-.02em;line-height:.85;
+}
+.sec.dark .sec-kick{color:var(--hot)}
+.sec.dark .sec-kick .idx{color:var(--hot)}
+.sec-h2{
+  font-family:var(--display);font-weight:900;
+  font-size:clamp(48px,7vw,108px);line-height:.9;letter-spacing:-.035em;text-wrap:balance;
+}
+.sec-h2 .serif{font-family:var(--serif);font-style:italic;font-weight:400;color:var(--hot);font-size:1.05em;letter-spacing:-.02em}
+.sec-h2 .hl{background:var(--ink);color:var(--bg);padding:0 12px;display:inline-block}
+.sec.dark .sec-h2 .hl{background:var(--hot);color:var(--ink)}
+.sec-h2 .ul{background:linear-gradient(transparent 68%,var(--yellow) 68%,var(--yellow) 92%,transparent 92%)}
+.sec-lede{max-width:60ch;font-size:18px;color:var(--ink-2);margin-top:20px;font-weight:500}
+.sec.dark .sec-lede{color:#c8c8c8}
+
+/* ============ МИФS ============ */
+.lies-grid{display:grid;grid-template-columns:1.05fr 1fr;gap:64px;align-items:start}
+.lies-grid .copy h2{font-family:var(--display);font-size:clamp(48px,7vw,104px);line-height:.9;letter-spacing:-.035em;color:var(--bg)}
+.lies-grid .copy h2 .serif{font-family:var(--serif);font-style:italic;font-weight:400;color:var(--hot);font-size:1.05em;letter-spacing:-.02em}
+.lies-grid .copy h2 .hl{background:var(--hot);color:var(--ink);padding:0 14px}
+.lies-grid .copy p{font-size:18px;color:#c8c8c8;font-weight:500;margin-top:24px;max-width:42ch}
+.lies-list{display:flex;flex-direction:column;gap:16px}
+.lie{
+  background:var(--paper);color:var(--ink);padding:24px 26px;
+  display:grid;grid-template-columns:60px 1fr;gap:18px;
+  border-left:5px solid var(--hot);position:relative;
+}
+.lie.truth{border-left-color:var(--green)}
+.lie .n{font-family:var(--display);font-size:28px;color:var(--hot);line-height:1;padding-top:4px}
+.lie.truth .n{color:var(--green)}
+.lie .q{font-family:var(--serif);font-style:italic;font-weight:400;font-size:24px;line-height:1.2;letter-spacing:-.01em;color:var(--ink);margin-bottom:8px}
+.lie .q .strike{text-decoration:line-through;text-decoration-thickness:3px;text-decoration-color:var(--hot);color:var(--mid)}
+.lie .a{font-size:15px;color:var(--mid);font-weight:500}
+.lie .a b{background:var(--yellow);color:var(--ink);padding:0 4px;font-weight:600}
+.lie.truth .q{color:var(--green)}
+.lie.truth .a b{background:var(--green-dim);color:var(--green)}
+.lie::after{
+  content:'МИФ';position:absolute;top:14px;right:18px;
+  font-family:var(--mono);font-size:10px;font-weight:700;letter-spacing:.14em;color:var(--hot);
+}
+.lie.truth::after{content:'ИДЕЯ';color:var(--green)}
+
+/* ============ MECHANISMS ============ */
+.mechs{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.mech{padding:48px 32px;border-left:1px solid var(--line);display:flex;flex-direction:column;gap:22px;background:var(--paper)}
+.mech:first-child{border-left:0}
+.mech-num{font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:.12em;color:var(--hot);text-transform:uppercase}
+.mech-fig{aspect-ratio:5/3;border:1px solid var(--line);background:var(--bg);padding:8px}
+.mech h3{font-family:var(--display);font-size:36px;line-height:1.05;letter-spacing:-.02em;color:var(--ink)}
+.mech h3 .serif{font-family:var(--serif);font-style:italic;font-weight:400;color:var(--hot);font-size:1.08em;letter-spacing:-.02em}
+.mech p{color:var(--ink-2);font-size:15.5px;flex:1;font-weight:500}
+.mech .stat{display:flex;justify-content:space-between;align-items:baseline;padding-top:18px;border-top:1px solid var(--line-2)}
+.mech .stat .n{font-family:var(--display);font-size:36px;letter-spacing:-.025em;color:var(--hot)}
+.mech .stat .l{font-family:var(--mono);font-size:10.5px;font-weight:700;letter-spacing:.12em;color:var(--mid);text-transform:uppercase}
+.mech .cite{font-family:var(--mono);font-size:10.5px;letter-spacing:.06em;color:var(--mid);border-top:1px dashed var(--line-2);padding-top:12px}
+.mech .cite b{color:var(--ink);font-weight:700}
+
+/* ============ PROTOCOL ============ */
+.proto{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border:1px solid var(--ink);background:var(--paper)}
+.phase{padding:36px 28px;border-right:1px solid var(--line);display:flex;flex-direction:column;gap:14px;position:relative}
+.phase:last-child{border-right:0;background:var(--ink);color:var(--bg)}
+.phase .n{font-family:var(--display);font-size:108px;line-height:.85;letter-spacing:-.04em;color:var(--ink)}
+.phase:last-child .n{color:var(--hot)}
+.phase .wk{font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--mid)}
+.phase:last-child .wk{color:#c8c8c8}
+.phase h4{font-family:var(--display);font-size:26px;letter-spacing:-.015em;line-height:1.05;margin-top:18px}
+.phase h4 .serif{font-family:var(--serif);font-style:italic;font-weight:400;font-size:1.1em;color:var(--hot)}
+.phase p{font-size:14.5px;color:var(--mid);font-weight:500;flex:1;line-height:1.55}
+.phase:last-child p{color:#c8c8c8}
+.phase .d{margin-top:24px;padding-top:18px;border-top:1px solid var(--line);display:flex;justify-content:space-between;align-items:baseline}
+.phase:last-child .d{border-top-color:var(--mid)}
+.phase .d .l{font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:.12em;color:var(--mid);text-transform:uppercase}
+.phase .d .v{font-family:var(--display);font-size:30px;letter-spacing:-.02em;color:var(--hot)}
+
+/* ============ EVIDENCE ============ */
+.res-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:28px}
+.res{
+  background:var(--paper);border:1px solid var(--ink);box-shadow:6px 6px 0 var(--ink);
+  display:flex;flex-direction:column;position:relative;
+}
+.res .photo{aspect-ratio:4/5;background:#222;position:relative;border-bottom:1px solid var(--ink);overflow:hidden}
+.res .photo img{width:100%;height:100%;object-fit:cover;filter:contrast(1.05) saturate(.85)}
+.res .photo .stamp{
+  position:absolute;top:14px;right:14px;
+  background:var(--hot);color:var(--paper);padding:6px 10px;border:1px solid var(--ink);
+  font-family:var(--mono);font-size:10.5px;font-weight:700;letter-spacing:.14em;
+  transform:rotate(3deg);
+}
+.res .photo .meta{
+  position:absolute;bottom:14px;left:14px;right:14px;
+  display:flex;justify-content:space-between;
+  color:var(--paper);font-family:var(--mono);font-size:10.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;
+  text-shadow:0 1px 4px rgba(0,0,0,.85);
+}
+.res .body{padding:24px;display:flex;flex-direction:column;gap:14px;flex:1}
+.res-stats{display:flex;flex-direction:column;gap:4px;font-family:var(--mono);font-size:11.5px;font-weight:500;letter-spacing:.04em;color:var(--mid);text-transform:uppercase;padding:4px 0 8px;border-bottom:1px dashed var(--line);margin-bottom:6px}
+.res-stats span{display:flex;justify-content:space-between;gap:12px}
+.res-stats b{color:var(--ink);font-family:var(--mono);font-weight:700;letter-spacing:.1em}
+.res .delta{font-family:var(--display);font-size:80px;letter-spacing:-.03em;line-height:.9;color:var(--hot)}
+.res .delta sup{font-size:.3em;color:var(--mid);vertical-align:top;font-family:var(--mono)}
+.res .q{
+  font-family:var(--serif);font-style:italic;font-weight:400;font-size:20px;
+  line-height:1.3;letter-spacing:-.005em;color:var(--ink-2);
+}
+.res .q::before{content:'\"';color:var(--hot)}
+.res .q::after{content:'\"';color:var(--hot)}
+.res .by{margin-top:auto;padding-top:18px;border-top:1px dashed var(--line);font-family:var(--mono);font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;display:flex;justify-content:space-between;color:var(--mid)}
+.res .by .name{color:var(--ink)}
+
+/* ============ SLEEP ============ */
+.sleep{display:grid;grid-template-columns:1.05fr 1fr;gap:64px;align-items:center}
+.sleep-card{
+  background:var(--ink);color:var(--paper);padding:32px;border:1px solid var(--ink);
+  box-shadow:10px 10px 0 var(--hot);aspect-ratio:6/7;display:flex;flex-direction:column;gap:16px;
+}
+.sleep-card h5{font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:.14em;color:var(--hot);text-transform:uppercase}
+.sleep-card .chart{flex:1;border:1px solid #2a2a2c;background:#0a0a0a;padding:10px}
+.sleep-card .num{font-family:var(--display);font-size:88px;line-height:.85;color:var(--hot);letter-spacing:-.04em;margin-top:8px}
+.sleep-card .num sup{font-size:.32em;color:var(--yellow);vertical-align:top}
+.sleep-card .l{font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:.14em;color:var(--yellow);text-transform:uppercase}
+
+.sleep-copy h3{font-family:var(--display);font-size:clamp(52px,6.5vw,84px);line-height:.92;letter-spacing:-.03em}
+.sleep-copy h3 .serif{font-family:var(--serif);font-style:italic;font-weight:400;color:var(--hot);font-size:1.1em;letter-spacing:-.02em}
+.sleep-copy p{font-size:17px;color:var(--ink-2);margin-top:22px;max-width:42ch;font-weight:500}
+.sleep-copy p strong{color:var(--ink);background:var(--yellow);padding:1px 4px;font-weight:600}
+.sleep-copy .ks{margin-top:32px;display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line);border:1px solid var(--ink)}
+.sleep-copy .ks > div{background:var(--paper);padding:20px}
+.sleep-copy .ks .n{font-family:var(--display);font-size:48px;line-height:1;color:var(--hot);letter-spacing:-.025em}
+.sleep-copy .ks .l{font-family:var(--mono);font-size:10.5px;font-weight:700;letter-spacing:.12em;color:var(--mid);text-transform:uppercase;margin-top:10px}
+
+/* ============ COMPARE ============ */
+.compare{border:1px solid var(--ink);background:var(--paper);overflow:hidden;box-shadow:6px 6px 0 var(--ink)}
+.cr{display:grid;grid-template-columns:1.5fr repeat(4,1fr);border-top:1px solid var(--line)}
+.cr:first-child{border-top:0;background:var(--ink);color:var(--paper)}
+.cr > div{padding:22px 22px;border-left:1px solid var(--line);font-family:var(--mono);font-size:13px;font-weight:500;color:var(--ink-2)}
+.cr > div:first-child{border-left:0;font-family:var(--sans);font-weight:600;font-size:14.5px;color:var(--ink)}
+.cr:first-child > div{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--paper);font-weight:700;border-left:1px solid #2a2a2c}
+.cr:first-child > div:first-child{border-left:0}
+.cr .us{background:var(--hot-dim);border-left:1px solid var(--hot)!important;font-weight:700;color:var(--ink)}
+.cr:first-child .us{background:var(--hot);color:var(--ink)!important;border-left:1px solid var(--hot)!important}
+.cr .no{color:var(--hot);font-weight:700}
+.cr .yes{color:var(--green);font-weight:700}
+.cr .neutral{color:var(--dim)}
+.cr .big{font-family:var(--display);font-size:18px;letter-spacing:-.015em;color:var(--ink)}
+.cr .us .big{color:var(--hot)}
+
+/* ============ PRICE ============ */
+.price{display:grid;grid-template-columns:1.1fr 1fr;border:1px solid var(--ink);background:var(--paper);box-shadow:10px 10px 0 var(--ink)}
+.price-l{padding:48px 44px;border-right:1px solid var(--line);position:relative;background:linear-gradient(180deg,var(--paper),var(--bg))}
+.price-l .tag{display:inline-block;background:var(--ink);color:var(--paper);padding:6px 12px;font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;margin-bottom:28px}
+.price-amt{font-family:var(--display);font-size:172px;line-height:.82;letter-spacing:-.05em;color:var(--ink)}
+.price-amt .cur{font-size:.3em;color:var(--mid);vertical-align:top}
+.price-amt .ac{color:var(--hot)}
+.price-was{font-family:var(--mono);font-size:14px;color:var(--mid);text-decoration:line-through;margin-top:10px}
+.price-was b{color:var(--ink);font-weight:600;text-decoration:none;background:var(--yellow);padding:0 4px;margin-left:10px}
+.price-gty{margin-top:28px;padding:18px;background:var(--green-dim);border:1px solid var(--green);font-size:14px;font-weight:500;color:var(--ink)}
+.price-gty b{color:var(--green);font-family:var(--display);font-size:13px;letter-spacing:.04em}
+.price-cta{
+  display:block;margin-top:24px;background:var(--ink);color:var(--bg);text-align:center;
+  padding:22px;font-family:var(--mono);font-size:13px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;
+  position:relative;overflow:hidden;transition:background .15s,transform .15s;
+}
+.price-cta:hover{background:var(--hot);transform:translateY(-2px)}
+.price-r{padding:48px 44px}
+.price-r h4{font-family:var(--display);font-size:28px;letter-spacing:-.015em;margin-bottom:22px;line-height:1.1}
+.price-r ul{list-style:none}
+.price-r li{display:grid;grid-template-columns:42px 1fr auto;gap:14px;align-items:baseline;padding:16px 0;border-bottom:1px dashed var(--line)}
+.price-r li:last-child{border-bottom:0}
+.price-r li .i{font-family:var(--display);font-size:22px;color:var(--hot);letter-spacing:-.02em}
+.price-r li .n{font-weight:600;font-size:15.5px;color:var(--ink)}
+.price-r li .n span{display:block;font-size:13px;color:var(--mid);font-weight:500;margin-top:3px}
+.price-r li .v{font-family:var(--mono);font-size:10.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--mid)}
+
+/* ============ FAQ ============ */
+.faq{border-top:1px solid var(--ink)}
+.faq details{border-bottom:1px solid var(--ink);padding:28px 0}
+.faq summary{
+  list-style:none;cursor:pointer;display:grid;grid-template-columns:80px 1fr 40px;gap:24px;align-items:start;
+}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary .n{font-family:var(--mono);font-size:12px;font-weight:700;letter-spacing:.12em;color:var(--hot);padding-top:14px}
+.faq summary .q{font-family:var(--serif);font-style:italic;font-weight:400;font-size:32px;line-height:1.15;letter-spacing:-.012em;color:var(--ink)}
+.faq summary .p{font-family:var(--display);font-size:34px;color:var(--ink);transition:transform .25s;align-self:start;line-height:1}
+.faq details[open] summary .p{transform:rotate(45deg);color:var(--hot)}
+.faq .a{padding:18px 0 0 104px;color:var(--ink-2);max-width:72ch;font-size:16px;font-weight:500;line-height:1.6}
+.faq .a strong{background:var(--yellow);padding:0 4px;color:var(--ink);font-weight:600}
+
+/* ============ FINAL ============ */
+.final{padding:120px 0;text-align:center;border-bottom:0;background:var(--hot);color:var(--ink);position:relative;overflow:hidden}
+.final::before{
+  content:'';position:absolute;inset:0;
+  background:
+    radial-gradient(circle at 20% 30%,rgba(255,225,74,.3),transparent 40%),
+    radial-gradient(circle at 80% 60%,rgba(10,10,10,.1),transparent 40%);
+}
+.final > *{position:relative;z-index:2}
+.final h2{font-family:var(--display);font-size:clamp(72px,12vw,200px);line-height:.86;letter-spacing:-.045em;text-wrap:balance}
+.final h2 .strike{
+  position:relative;display:inline;
+  text-decoration:line-through;
+  text-decoration-color:var(--ink);
+  text-decoration-thickness:6px;
+  text-decoration-skip-ink:none;
+}
+.final h2 .strike::after{content:none}
+.final h2 .hl{background:var(--ink);color:var(--yellow);padding:0 18px;display:inline-block}
+.final h2 .serif{font-family:var(--serif);font-style:italic;font-weight:400;color:var(--ink);font-size:1.05em;letter-spacing:-.02em}
+.final p{margin:32px auto 44px;font-size:22px;font-weight:600;max-width:46ch;color:var(--ink)}
+.final .btn-primary{background:var(--ink);color:var(--bg);padding:22px 28px;font-size:14px}
+.final .btn-primary:hover{background:var(--paper);color:var(--ink)}
+.final .btn-primary:hover .arr{background:var(--hot);color:var(--ink)}
+
+/* ============ FOOTER ============ */
+.footer{padding:56px 0;background:var(--ink);color:var(--bg)}
+.footer-i{display:grid;grid-template-columns:1fr 2fr 1fr;gap:28px;align-items:start;font-family:var(--mono);font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#8a8a8d}
+.footer-links{display:flex;gap:22px;justify-content:center;flex-wrap:wrap}
+.footer-links a:hover{color:var(--hot)}
+.footer-legal{margin-top:40px;font-family:var(--sans);font-size:12px;color:#8a8a8d;font-weight:500;letter-spacing:0;text-transform:none;max-width:80ch;line-height:1.55}
+.footer .brand{color:var(--bg)}
+
+/* Mobile-only hero video — hidden on desktop */
+.hero-mobile-video{display:none}
+
+/* ============ HERO RECEIPT (social proof anchor under h1) ============ */
+.hero-receipt{
+  margin-top:24px;display:inline-grid;grid-template-columns:auto 1fr auto;gap:14px;align-items:center;
+  background:var(--paper);border:1px solid var(--ink);box-shadow:4px 4px 0 var(--ink);
+  padding:10px 14px 10px 10px;position:relative;text-decoration:none;
+  transition:transform .15s,box-shadow .15s;
+}
+.hero-receipt:hover{transform:translate(-2px,-2px);box-shadow:6px 6px 0 var(--ink)}
+.hr-thumb{width:54px;height:54px;object-fit:cover;border:1px solid var(--ink);filter:contrast(1.05) saturate(.85)}
+.hr-stack{display:flex;flex-direction:column;gap:3px;min-width:0}
+.hr-quote{font-family:var(--serif);font-style:italic;font-size:17px;line-height:1.15;color:var(--ink);letter-spacing:-.005em}
+.hr-meta{font-family:var(--mono);font-size:10.5px;font-weight:600;letter-spacing:.08em;color:var(--mid);text-transform:uppercase}
+.hr-meta b{color:var(--hot);font-weight:700}
+.hr-stamp{font-family:var(--mono);font-size:9.5px;font-weight:700;letter-spacing:.14em;color:var(--green);border:1px solid var(--green);padding:4px 8px;text-transform:uppercase;flex-shrink:0;align-self:start}
+
+/* ============ TRUST PILLS (under primary CTA) ============ */
+.trust-pills{
+  display:flex;flex-wrap:wrap;gap:8px 14px;margin-top:22px;align-items:center;
+  font-family:var(--mono);font-size:11px;font-weight:600;letter-spacing:.06em;color:var(--mid);text-transform:uppercase;
+}
+.trust-pills span{display:inline-flex;align-items:center;gap:6px;white-space:nowrap}
+.trust-pills .tp-i{font-size:11px;color:var(--green);font-style:normal;font-weight:900}
+
+/* ============ PRICE FRAME (less-than-dinner) ============ */
+.price-frame{
+  margin-top:14px;padding:14px 16px;background:var(--paper);border-left:3px solid var(--hot);
+  font-size:13.5px;color:var(--ink-2);line-height:1.5;font-weight:500;
+}
+.price-frame em{font-family:var(--serif);font-style:italic;font-size:18px;color:var(--ink);font-weight:400;letter-spacing:-.01em}
+
+/* ============ STICKY MOBILE CTA BAR ============ */
+.mobile-cta{
+  position:fixed;left:0;right:0;bottom:0;z-index:60;
+  display:none;
+  background:var(--ink);color:var(--bg);
+  padding:10px 14px;
+  align-items:center;gap:10px;
+  border-top:2px solid var(--hot);
+  box-shadow:0 -6px 20px rgba(0,0,0,.18);
+  transform:translateY(100%);transition:transform .35s cubic-bezier(.22,.9,.28,1.1);
+}
+.mobile-cta.on{transform:translateY(0)}
+.mobile-cta .price-line{flex:1;display:flex;flex-direction:column;gap:1px}
+.mobile-cta .p1{font-family:var(--mono);font-size:9.5px;font-weight:700;letter-spacing:.12em;color:var(--yellow);text-transform:uppercase}
+.mobile-cta .p2{font-family:var(--display);font-size:18px;letter-spacing:-.015em;line-height:1;color:var(--bg)}
+.mobile-cta .p2 .strike{color:#7a7a7d;font-size:.65em;text-decoration:line-through;margin-right:6px;font-family:var(--mono);font-weight:500;letter-spacing:0}
+.mobile-cta a{
+  background:var(--hot);color:var(--ink);
+  padding:13px 16px;font-family:var(--mono);font-size:11.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
+  display:inline-flex;align-items:center;gap:8px;flex-shrink:0;
+  border:1px solid var(--paper);box-shadow:3px 3px 0 var(--paper);
+}
+.mobile-cta a:active{transform:translate(2px,2px);box-shadow:0 0 0 var(--paper)}
+
+/* ============ GUARANTEE STAMP near price ============ */
+.gty-stamp{
+  display:inline-flex;align-items:center;gap:10px;
+  background:var(--green-dim);color:var(--green);border:1px solid var(--green);
+  padding:8px 14px;margin-top:18px;
+  font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
+}
+.gty-stamp::before{
+  content:'';width:18px;height:18px;flex-shrink:0;
+  background:var(--green);
+  clip-path:polygon(50% 0,93% 25%,93% 75%,50% 100%,7% 75%,7% 25%);
+}
+.gty-stamp .b{color:var(--green);font-family:var(--display);font-weight:900;font-size:13px;letter-spacing:.02em}
+
+/* ============ URGENCY STRIP ============ */
+.urgency{
+  background:var(--ink);color:var(--paper);
+  padding:14px 18px;margin-top:18px;
+  display:grid;grid-template-columns:1fr auto;gap:18px;align-items:center;
+  border:1px solid var(--ink);
+}
+.urgency .label{font-family:var(--mono);font-size:10.5px;font-weight:700;letter-spacing:.14em;color:var(--hot);text-transform:uppercase;display:flex;align-items:center;gap:8px}
+.urgency .label::before{content:'';width:7px;height:7px;border-radius:50%;background:var(--hot);box-shadow:0 0 8px var(--hot);animation:pulseDot 1.8s infinite}
+@keyframes pulseDot{50%{opacity:.4}}
+.urgency .copy{font-family:var(--sans);font-size:13.5px;font-weight:500;color:var(--bg);margin-top:4px}
+.urgency .copy b{font-family:var(--display);color:var(--hot);font-weight:900;font-size:15px}
+.urgency .meter{width:120px;height:6px;background:#2a2a2c;border:1px solid var(--paper);position:relative;overflow:hidden}
+.urgency .meter i{position:absolute;inset:0 auto 0 0;width:47%;background:linear-gradient(90deg,var(--hot),var(--yellow));box-shadow:0 0 8px var(--hot)}
+@media(max-width:640px){.urgency{grid-template-columns:1fr;gap:8px;padding:12px 14px}.urgency .meter{width:100%}}
+
+/* ============ RESPONSIVE ============ */
+@media (max-width:980px){
+  .hero-grid{grid-template-columns:1fr;gap:48px}
+  .strip-row{grid-template-columns:1fr 1fr}
+  .strip-cell{border-left:0;border-top:1px solid var(--line);padding:18px 0}
+  .strip-cell:first-child,.strip-cell:nth-child(2){border-top:0}
+  .lies-grid,.sleep{grid-template-columns:1fr;gap:36px}
+  .mechs{grid-template-columns:1fr}
+  .mech{border-left:0;border-top:1px solid var(--line)}
+  .mech:first-child{border-top:0}
+  .proto{grid-template-columns:1fr}
+  .phase{border-right:0;border-bottom:1px solid var(--line)}
+  .res-grid{grid-template-columns:1fr}
+  .cr{grid-template-columns:1fr 1fr}
+  .price{grid-template-columns:1fr}
+  .sec-head{grid-template-columns:1fr;gap:20px}
+  .nav-ul{display:none}
+  .faq summary{grid-template-columns:60px 1fr 30px;gap:14px}
+  .faq summary .q{font-size:24px}
+  .faq .a{padding-left:74px}
+}
+
+/* ============ MOBILE (≤640px) ============ */
+@media (max-width:640px){
+  .wrap{padding:0 18px}
+
+  /* Hero receipt compacter on mobile */
+  .hero-receipt{margin-top:18px;padding:10px 12px;gap:10px}
+  .hr-thumb{width:46px;height:46px}
+  .hr-quote{font-size:14.5px}
+  .hr-meta{font-size:9.5px;letter-spacing:.06em}
+  .hr-stamp{font-size:8.5px;padding:3px 6px}
+  .trust-pills{gap:6px 12px;margin-top:16px;font-size:10px}
+  .price-frame{padding:12px 14px;font-size:12.5px;margin-top:12px}
+  .price-frame em{font-size:16px}
+
+  /* MOBILE HERO VIDEO (1:1, between h1 and lede) */
+  .hero-mobile-video{display:block;margin-top:20px}
+  .hmv-frame{position:relative;aspect-ratio:1/1;background:#000;border:1px solid var(--ink);box-shadow:5px 5px 0 var(--ink);overflow:hidden}
+  .hmv-frame video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+  .hmv-cap{display:flex;justify-content:space-between;align-items:center;margin-top:10px;font-family:var(--mono);font-size:10px;font-weight:700;letter-spacing:.12em;color:var(--mid);text-transform:uppercase}
+  .hmv-id{color:var(--ink)}
+
+  /* Hide desktop proof-card on mobile (video shown above) */
+  .proof-card{display:none}
+
+  /* Show sticky mobile CTA */
+  .mobile-cta{display:flex}
+
+  /* Tighter above-the-fold */
+  .hero{padding:24px 0 32px}
+  .hero-h1{font-size:42px;line-height:.94}
+  .hero-h1{text-decoration-thickness:4px}
+  .hero-lede{font-size:14.5px;margin-top:18px}
+  .hero-cta{margin-top:18px}
+  .hero-meta{padding-bottom:16px;margin-bottom:20px}
+  body{padding-bottom:72px} /* room for sticky CTA */
+
+  /* NAV */
+  .nav-i{padding:11px 18px;gap:12px;grid-template-columns:auto auto}
+  .brand{font-size:16px}
+  .nav-cta{padding:9px 12px;font-size:10px;letter-spacing:.08em;gap:6px}
+  .nav-cta .arr{width:16px;height:16px;font-size:10px}
+
+  /* HERO */
+  .hero{padding:32px 0 40px}
+  .hero-meta{
+    grid-template-columns:1fr;gap:8px;
+    padding-bottom:20px;margin-bottom:28px;
+    font-size:10px;letter-spacing:.08em;
+  }
+  .hero-meta .ml{flex-wrap:wrap;gap:8px}
+  .hero-meta .ml span:not(:last-child)::after{margin-left:8px}
+  .hero-meta .vol{justify-self:start;font-size:13px}
+  .hero-meta .ver{font-size:10px}
+  .hero-grid{gap:32px}
+  .hero-h1{
+    font-size:48px;letter-spacing:-.03em;line-height:.94;
+    overflow-wrap:break-word;
+  }
+  .hero-h1 .underline::after{height:7px}
+  .hero-h1 .serif{font-size:1em}
+  .hero-lede{font-size:15.5px;line-height:1.5;margin-top:22px}
+  .hero-cta{margin-top:24px;gap:10px;flex-direction:column;align-items:stretch}
+  .btn-primary{padding:15px 20px;font-size:11.5px;justify-content:center}
+  .btn-primary .arr{width:22px;height:22px;font-size:11px}
+  .btn-ghost{padding:12px 4px;font-size:11px;text-align:center}
+  .hero-caps{margin-top:22px;gap:10px 14px;font-size:10px;letter-spacing:.06em}
+
+  /* PROOF CARD */
+  .proof-card{box-shadow:5px 5px 0 var(--ink)}
+  .proof-card::before{font-size:10px;padding:3px 8px;left:14px;top:-10px}
+  .pc-head{padding:18px 18px 12px}
+  .pc-head .id{font-size:10px;letter-spacing:.1em}
+  .pc-head h3{font-size:24px;line-height:1.1;margin-top:6px}
+  .pc-video{aspect-ratio:4/5}
+  .pc-video-lbl{font-size:9px;padding:3px 7px;top:10px}
+  .pc-video-lbl.bef{left:10px}
+  .pc-video-lbl.aft{right:10px}
+  .pc-final{padding:14px 18px}
+  .pc-final .l{font-size:10px}
+  .pc-final .v{font-size:44px}
+
+  /* STRIP */
+  .strip{padding:20px 0}
+  .strip-row{grid-template-columns:1fr 1fr}
+  .strip-cell{padding:14px 14px}
+  .strip-cell:nth-child(odd){border-left:0!important}
+  .strip-cell:nth-child(even){border-left:1px solid var(--line)!important}
+  .strip-cell:nth-child(3),.strip-cell:nth-child(4){border-top:1px solid var(--line)!important}
+  .strip-cell .n{font-size:30px}
+  .strip-cell .n .small{font-size:.5em}
+  .strip-cell .l{font-size:9px;letter-spacing:.1em;margin-top:6px}
+
+  /* SECTIONS */
+  .sec{padding:64px 0}
+  .sec-head{margin-bottom:36px}
+  .sec-kick{font-size:10px;letter-spacing:.1em}
+  .sec-kick .idx{font-size:36px}
+  .sec-h2{font-size:36px;line-height:.95;letter-spacing:-.025em}
+  .sec-lede{font-size:15.5px;margin-top:14px}
+
+  /* МИФS */
+  .lies-grid .copy h2{font-size:36px;line-height:.95}
+  .lies-grid .copy p{font-size:15.5px;margin-top:18px}
+  .lie{padding:18px 18px;gap:12px;grid-template-columns:42px 1fr}
+  .lie .n{font-size:22px}
+  .lie .q{font-size:18px;line-height:1.2}
+  .lie .a{font-size:14px}
+  .lie::after{font-size:9px;top:10px;right:14px}
+
+  /* MECHS */
+  .mech{padding:32px 22px;gap:16px}
+  .mech-fig{aspect-ratio:4/3}
+  .mech h3{font-size:28px;line-height:1.05}
+  .mech p{font-size:14.5px}
+  .mech .stat .n{font-size:28px}
+  .mech .stat .l{font-size:9.5px;letter-spacing:.1em}
+  .mech .cite{font-size:9.5px}
+
+  /* PROTOCOL */
+  .phase{padding:28px 22px;gap:10px}
+  .phase .n{font-size:72px}
+  .phase .wk{font-size:10px}
+  .phase h4{font-size:22px;margin-top:12px}
+  .phase p{font-size:14px}
+  .phase .d{margin-top:16px;padding-top:12px}
+  .phase .d .v{font-size:24px}
+
+  /* RECEIPTS / RESULTS */
+  .res .delta{font-size:60px}
+  .res .q{font-size:17px}
+  .res .by{font-size:10px}
+
+  /* SLEEP */
+  .sleep-card{padding:22px;aspect-ratio:5/6}
+  .sleep-card h5{font-size:10px}
+  .sleep-card .num{font-size:60px}
+  .sleep-card .num sup{font-size:.3em}
+  .sleep-copy h3{font-size:40px}
+  .sleep-copy p{font-size:15px}
+  .sleep-copy .ks .n{font-size:32px}
+  .sleep-copy .ks .l{font-size:9.5px}
+  .sleep-copy .ks > div{padding:14px}
+
+  /* COMPARE */
+  .cr{grid-template-columns:1fr 1fr;font-size:11px}
+  .cr > div{padding:14px 12px;font-size:11.5px}
+  .cr:first-child > div{font-size:9.5px;padding:11px 10px}
+  .cr > div:first-child{font-size:12.5px;font-weight:600}
+  .cr .big{font-size:14px}
+
+  /* COMPARE TABLE — stack into label-block + 2x2 value grid per row */
+  .compare{box-shadow:5px 5px 0 var(--ink)}
+  .cr:first-child{display:none}
+  .cr{grid-template-columns:1fr 1fr;border-top:2px solid var(--ink);background:var(--paper)}
+  .cr > div{padding:14px 14px;font-size:13px;border-left:1px solid var(--line);border-top:1px solid var(--line-2);font-family:var(--sans);font-weight:500}
+  .cr > div:first-child{
+    grid-column:1/-1;background:var(--ink);color:var(--paper);
+    font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;
+    padding:11px 14px;font-weight:700;border-left:0;border-top:0;
+  }
+  .cr > div:nth-child(2),.cr > div:nth-child(4){border-left:0}
+  .cr > div:nth-child(2)::before,.cr > div:nth-child(3)::before,.cr > div:nth-child(4)::before,.cr > div:nth-child(5)::before{
+    display:block;font-family:var(--mono);font-size:9px;font-weight:700;letter-spacing:.1em;
+    color:var(--mid);text-transform:uppercase;margin-bottom:4px;
+  }
+  .cr > div:nth-child(2)::before{content:'Операция'}
+  .cr > div:nth-child(3)::before{content:'Приложения'}
+  .cr > div:nth-child(4)::before{content:'Без изменений'}
+  .cr > div:nth-child(5)::before{content:'APEX';color:var(--hot)}
+  .cr .us{background:var(--hot-dim);border-left:1px solid var(--hot)!important}
+  .cr .big{font-size:15px}
+
+  /* PRICE */
+  .price{box-shadow:5px 5px 0 var(--ink)}
+  .price-l,.price-r{padding:28px 22px}
+  .price-l .tag{font-size:9.5px;padding:5px 9px;margin-bottom:18px}
+  .price-amt{font-size:96px;letter-spacing:-.04em}
+  .price-was{font-size:12px}
+  .price-was b{font-size:10px;letter-spacing:.04em;padding:0 4px;margin-left:6px}
+  .price-gty{padding:14px;font-size:13px;margin-top:20px}
+  .price-cta{padding:17px;font-size:11.5px;letter-spacing:.1em}
+  .price-r h4{font-size:22px;margin-bottom:14px}
+  .price-r li{grid-template-columns:32px 1fr;gap:10px;padding:12px 0}
+  .price-r li .v{display:none}
+  .price-r li .i{font-size:18px}
+  .price-r li .n{font-size:14px}
+  .price-r li .n span{font-size:12px;margin-top:2px}
+
+  /* FAQ */
+  .faq summary{grid-template-columns:50px 1fr 24px;gap:10px}
+  .faq summary .n{font-size:10px;padding-top:6px}
+  .faq summary .q{font-size:18px;line-height:1.2}
+  .faq summary .p{font-size:24px}
+  .faq .a{padding:14px 0 0 60px;font-size:14.5px}
+
+  /* FINAL */
+  .final{padding:96px 0}
+  .final h2{font-size:48px;line-height:.92}
+  .final h2 .strike::after{height:5px}
+  .final p{font-size:15.5px;margin:20px auto 28px}
+
+  /* FOOTER */
+  .footer{padding:36px 0}
+  .footer-i{grid-template-columns:1fr;gap:18px;text-align:center}
+  .footer-i > div:last-child{text-align:center!important}
+  .footer-links{justify-content:center;gap:14px 18px;font-size:10.5px}
+  .footer-legal{margin-top:24px;font-size:11.5px;text-align:center}
+}
+</style>
+<link rel="stylesheet" href="russian.css">
+</head>
+<body>
+<nav class="nav"><div class="nav-i"><a class="brand" href="index.html"><span class="sq"></span>APEX</a><div class="nav-ul"><a href="#lies">О росте</a><a href="#mech">Как это работает</a><a href="Protocol.html">Программа</a><a href="#price">Оплата</a><a href="#faq">Вопросы</a></div><a class="nav-cta" href="Height Assessment.html">Пройти анкету <span class="arr">↗</span></a></div></nav>
+<main><section class="hero"><div class="wrap"><div class="hero-meta"><div class="ml"><span>Осанка</span><span>Сон</span><span>Движение</span></div><div class="vol">Небольшие шаги. Каждый день.</div><div class="ver">Программа на 12 недель</div></div>
+<div class="hero-grid"><div><h1 class="hero-h1">Расправьте плечи.<br><span class="serif">Почувствуйте</span><br>разницу.</h1>
+<a class="hero-receipt" href="Protocol.html"><img class="hr-thumb" src="assets/SUBJ-001.png" alt="Фотографии для сравнения осанки"><div class="hr-stack"><span class="hr-quote"><em>Понятный план, к которому легко вернуться.</em></span><span class="hr-meta">Четыре этапа — от первых записей до устойчивых привычек</span></div><span class="hr-stamp">12 НЕДЕЛЬ</span></a>
+<div class="hero-mobile-video"><div class="hmv-frame"><video autoplay muted loop playsinline disablepictureinpicture aria-label="Видео о внешнем виде и осанке"><source src="assets/hero.mp4" type="video/mp4"></video></div><div class="hmv-cap"><span class="hmv-id">Внешний вид зависит не только от роста</span></div></div>
+<p class="hero-lede">Хотите меньше сутулиться и чувствовать себя увереннее? Начните с осанки, сна и повседневных привычек. <strong>APEX поможет собрать всё в один план на 12 недель.</strong></p>
+<div class="hero-cta"><a class="btn-primary" href="Height Assessment.html">С чего мне начать? <span class="arr">→</span></a><a class="btn-ghost" href="#price">Получить материалы →</a></div><div class="trust-pills"><span><i class="tp-i">◆</i>Пошаговый план</span><span><i class="tp-i">↻</i>Без регистрации</span><span><i class="tp-i">↓</i>Материалы бесплатно</span></div></div>
+<div class="proof-card"><div class="pc-head"><div class="id">ОСАНКА И ВНЕШНИЙ ВИД</div><h3>В полный рост.<br><em>С уверенностью в себе.</em></h3></div><div class="pc-video"><video autoplay muted loop playsinline disablepictureinpicture aria-label="Видео о внешнем виде и осанке"><source src="assets/hero.mp4" type="video/mp4"></video></div><div class="pc-final"><div class="l">Начните с простого</div><div class="v hero-card-end">Расправьте плечи</div></div></div>
+</div></div></section>
+<section class="strip" aria-label="Что входит в программу"><div class="wrap strip-row"><div class="strip-cell"><div class="n">12<span class="small">недель</span></div><div class="l">На работу с привычками</div></div><div class="strip-cell"><div class="n">4<span class="small">этапа</span></div><div class="l">Понятный порядок действий</div></div><div class="strip-cell"><div class="n">6<span class="small">пособий</span></div><div class="l">Для чтения и печати</div></div><div class="strip-cell"><div class="n">1<span class="small">план</span></div><div class="l">Всё нужное под рукой</div></div></div></section>
+<section class="sec dark" id="lies"><div class="wrap lies-grid"><div class="copy"><div class="sec-kick"><span class="idx">01.</span> О росте без мифов</div><h2>Что можно изменить,<br><span class="serif">а что — нет?</span></h2><p>Рост, осанка и внешний вид — не одно и то же. Разберёмся, на что стоит тратить силы, а чего не нужно от себя требовать.</p></div><div class="lies-list">
+<div class="lie"><div class="n">01</div><div><div class="q">«После 18 уже поздно что-то менять»</div><div class="a">Работа над осанкой не сводится к возрасту. <b>То, как вы держите спину и плечи, — отдельный вопрос от роста костей.</b></div></div></div>
+<div class="lie"><div class="n">02</div><div><div class="q">«С генетикой не поспоришь»</div><div class="a">Наследственность во многом определяет рост. Но это не повод махнуть рукой на себя: <b>режим, движение и повседневные привычки остаются в ваших руках.</b></div></div></div>
+<div class="lie"><div class="n">03</div><div><div class="q">«Без операции ничего не изменить»</div><div class="a"><b>Чтобы заняться осанкой, операция не нужна.</b> Это другая задача: обратить внимание на положение тела и привычки, а не удлинить кости.</div></div></div>
+<div class="lie truth"><div class="n">04</div><div><div class="q">Большие перемены начинаются <em>с небольших шагов.</em></div><div class="a">Не обязательно менять весь образ жизни за понедельник. <b>Начните с одной привычки</b>, дайте себе время и двигайтесь дальше.</div></div></div>
+</div></div></section>
+<section class="sec paper" id="mech"><div class="wrap"><div class="sec-head"><div class="sec-kick"><span class="idx">02.</span> Как это работает</div><div><h2 class="sec-h2">Осанка. Сон. <span class="serif">Движение.</span></h2><p class="sec-lede">Три вещи, которым стоит уделить внимание. Разберём каждую простыми словами — без сложных терминов и обещаний лишних сантиметров.</p></div></div><div class="mechs">
+<article class="mech"><div class="mech-num">01 · Осанка</div><div class="mech-fig"><svg viewBox="0 0 360 240" role="img" aria-labelledby="posture-title"><title id="posture-title">Положение тела: сутулая и прямая осанка</title><path d="M25 197H335" stroke="#dad7cd"/><g fill="none" stroke-width="4" stroke-linecap="round"><circle cx="111" cy="53" r="13" stroke="#e0431a"/><path d="M103 70 Q68 103 90 143 L86 195 M103 75 L129 128 M90 143 L119 194" stroke="#e0431a"/><circle cx="255" cy="40" r="13" stroke="#0a0a0a"/><path d="M255 57 Q245 93 253 135 L239 195 M255 64 L270 127 M253 135 L266 195" stroke="#0a0a0a"/></g><path d="M155 115H206M196 106L207 115 196 124" fill="none" stroke="#e0431a" stroke-width="2"/><g font-family="Golos Text" font-size="13" text-anchor="middle" fill="#5b5b60"><text x="104" y="224">Сутулая осанка</text><text x="254" y="224">Прямая осанка</text></g></svg></div><h3>Держать спину <span class="serif">ровнее.</span></h3><p>Понаблюдайте, как вы сидите за столом, стоите и смотрите в телефон. В программе есть место для этих наблюдений: замечать привычную позу проще, когда регулярно к ней возвращаешься.</p><div class="mech-takeaway">Сначала — внимание к себе</div><div class="cite">Сравнивайте положение тела в одинаковых условиях, а не прибавку роста по фотографии.</div></article><article class="mech"><div class="mech-num">02 · Сон</div><div class="mech-fig"><svg viewBox="0 0 360 240" role="img" aria-labelledby="sleep-title"><title id="sleep-title">Сон помогает восстановлению: схема ночного отдыха</title><path d="M52 67A35 35 0 1 0 92 107A31 31 0 0 1 52 67Z" fill="#ffe14a" stroke="#0a0a0a" stroke-width="2"/><path d="M25 176H335" stroke="#dad7cd"/><path d="M28 166C70 161 72 101 119 110S174 179 218 144 281 116 332 157" stroke="#e0431a" stroke-width="3" fill="none"/><g fill="#5b5b60" font-family="Golos Text" font-size="13"><text x="24" y="211">Засыпание</text><text x="335" y="211" text-anchor="end">Пробуждение</text></g><text x="225" y="49" font-family="PT Serif" font-size="22" text-anchor="middle" fill="#0a0a0a">Время восстановиться</text><text x="225" y="72" font-family="Golos Text" font-size="12" text-anchor="middle" fill="#5b5b60">Сон и гормон роста связаны</text></svg></div><h3>Дать себе <span class="serif">отдохнуть.</span></h3><p>Во сне организм восстанавливается и регулирует выработку гормонов, в том числе гормона роста. Дневник поможет заметить, как вы спите и какие вечерние привычки стоит пересмотреть.</p><div class="mech-takeaway">Следите за режимом сна</div><div class="cite">Записывайте время сна и самочувствие после пробуждения. <a href="https://www.nhlbi.nih.gov/health/sleep/why-sleep-important" target="_blank" rel="noopener">Подробнее о роли сна</a>.</div></article><article class="mech"><div class="mech-num">03 · Движение</div><div class="mech-fig"><svg viewBox="0 0 360 240" role="img" aria-labelledby="bone-title bone-desc"><title id="bone-title">Строение кости и распределение нагрузки</title><desc id="bone-desc">Слева указаны внутренние костные перемычки, справа — плотный наружный слой. Концы линий отмечены точками на соответствующих частях кости.</desc><defs><clipPath id="bone-mesh"><ellipse cx="180" cy="139" rx="62" ry="42"/></clipPath><pattern id="bone-lattice" width="24" height="24" patternUnits="userSpaceOnUse"><path d="M0 0L24 24M24 0L0 24" fill="none" stroke="#e0431a" stroke-width="1.4"/></pattern></defs><path d="M180 28V70M173 60L180 70 187 60" fill="none" stroke="#e0431a" stroke-width="2.5"/><ellipse cx="180" cy="139" rx="80" ry="58" fill="#e8e4d8" stroke="#0a0a0a" stroke-width="2.5"/><ellipse cx="180" cy="139" rx="62" ry="42" fill="#fff2e9" stroke="#0a0a0a"/><rect x="112" y="90" width="136" height="100" fill="url(#bone-lattice)" clip-path="url(#bone-mesh)"/><g fill="none" stroke="#5b5b60" stroke-width="1.4"><path d="M144 144L88 72H20"/><path d="M239 109L283 63H335"/></g><g fill="#e0431a" stroke="#fff" stroke-width="1.5"><circle cx="144" cy="144" r="4"/><circle cx="239" cy="109" r="4"/></g><g font-family="Golos Text" font-size="12" fill="#0a0a0a"><text x="20" y="40">Костные</text><text x="20" y="56">перемычки</text><text x="252" y="31">Плотный</text><text x="252" y="47">наружный слой</text></g><text x="180" y="223" font-family="Golos Text" font-size="12" fill="#5b5b60" text-anchor="middle">Кость в разрезе</text></svg></div><h3>Двигаться <span class="serif">регулярно.</span></h3><p>Физическая активность помогает поддерживать мышцы и кости. Начните с понимания своих возможностей и регулярности, а не с попытки сразу взять максимальную нагрузку.</p><div class="mech-takeaway">Нагрузка по силам</div><div class="cite">Костные перемычки — тонкие внутренние опоры. Кортикальный слой — плотная наружная часть кости. <a href="https://www.niams.nih.gov/health-topics/exercise-your-bone-health" target="_blank" rel="noopener">Подробнее об активности и костях</a>.</div></article></div></div></section>
+<section class="sec paper" id="evidence"><div class="wrap"><div class="sec-head"><div class="sec-kick"><span class="idx">03.</span> С чего начать</div><div><h2 class="sec-h2">У каждого — <span class="serif">своя отправная точка.</span></h2><p class="sec-lede">Кому-то хочется меньше сутулиться, кому-то — наладить сон или наконец заниматься регулярно. Узнали себя? Выберите то, с чего вам проще начать.</p></div></div><div class="res-grid"><article class="res"><div class="photo"><img src="assets/SUBJ-001.png" alt="Иллюстрация к теме: Меньше сутулиться" loading="lazy"><div class="stamp">Осанка</div></div><div class="body"><h3 class="story-title">Меньше сутулиться</h3><p class="story-copy">За работой легко забыть о положении тела. Начните с наблюдений: когда вы сутулитесь, как устроено рабочее место и что помогает вспомнить о спине.</p><div class="by"><span>Чек-лист на день</span><a href="Payment.html" target="_blank" rel="noopener">Получить →</a></div></div></article><article class="res"><div class="photo"><img src="assets/SUBJ-002.png" alt="Иллюстрация к теме: Наладить сон" loading="lazy"><div class="stamp">Отдых</div></div><div class="body"><h3 class="story-title">Наладить сон</h3><p class="story-copy">Если каждый день ложиться в разное время, привычный режим трудно заметить. Записывайте время сна и утреннее самочувствие — так появится общая картина.</p><div class="by"><span>Дневник сна</span><a href="Payment.html" target="_blank" rel="noopener">Получить →</a></div></div></article><article class="res"><div class="photo"><img src="assets/SUBJ-003.png" alt="Иллюстрация к теме: Не бросать на полпути" loading="lazy"><div class="stamp">Регулярность</div></div><div class="body"><h3 class="story-title">Не бросать на полпути</h3><p class="story-copy">Начинать с энтузиазмом легко. Сложнее продолжать в обычные дни. Небольшой список дел и отметки за неделю помогут увидеть, что уже получается.</p><div class="by"><span>Трекер на 12 недель</span><a href="Payment.html" target="_blank" rel="noopener">Получить →</a></div></div></article></div></div></section>
+<section class="sec paper" id="comparison"><div class="wrap"><div class="sec-head"><div class="sec-kick"><span class="idx">04.</span> Сравнение подходов</div><div><h2 class="sec-h2">Какой подход <span class="serif">вам подходит?</span></h2><p class="sec-lede">Одни варианты помогают организовать занятия, другие требуют обращения к врачу. Вот чем они отличаются.</p></div></div>
+<table class="approach-table"><caption>Сравнение по задаче, формату, затратам и ограничениям</caption><thead><tr><th scope="col">Вариант</th><th scope="col">Для чего</th><th scope="col">Как это устроено</th><th scope="col">Стоимость</th><th scope="col">Что учесть</th></tr></thead><tbody>
+<tr><th scope="row">Заниматься самостоятельно</th><td data-label="Для чего">Найти подходящие привычки и упражнения.</td><td data-label="Как это устроено">Вы сами ищете материалы, составляете план и ведёте записи.</td><td data-label="Стоимость">Зависит от выбранных материалов.</td><td data-label="Что учесть">Нужно проверять источники и самостоятельно поддерживать регулярность.</td></tr>
+<tr><th scope="row">Приложение для занятий</th><td data-label="Для чего">Следовать готовому расписанию.</td><td data-label="Как это устроено">Задания, напоминания и отметки в телефоне.</td><td data-label="Стоимость">Бесплатно или по подписке — зависит от приложения.</td><td data-label="Что учесть">Готовый план может не учитывать ваши ограничения.</td></tr>
+<tr><th scope="row">Операция по удлинению конечностей</th><td data-label="Для чего">Изменить длину костей хирургическим путём.</td><td data-label="Как это устроено">Обследование, операция и восстановление под наблюдением врачей.</td><td data-label="Стоимость">Рассчитывается в клинике.</td><td data-label="Что учесть">Это медицинское вмешательство с рисками, а не способ поработать над осанкой.</td></tr>
+<tr class="approach-apex"><th scope="row">Программа APEX</th><td data-label="Для чего">Собрать работу с осанкой, сном и привычками в один план.</td><td data-label="Как это устроено">Четыре этапа на 12 недель, памятки, дневник и чек-листы.</td><td data-label="Стоимость">Символическая. Сейчас все материалы доступны бесплатно.</td><td data-label="Что учесть">Понадобятся регулярные записи. Программа не обещает увеличение роста.</td></tr>
+</tbody></table></div></section>
+<section class="sec" id="price"><div class="wrap"><div class="sec-head"><div class="sec-kick"><span class="idx">05.</span> Оплата и материалы</div><div><h2 class="sec-h2">Всё, что нужно, <span class="serif">в одном комплекте.</span></h2></div></div><div class="price"><div class="price-l"><div class="price-label">Стоимость комплекта</div><div class="price-amt symbolic-price">Символическая</div><div class="price-frame">Все материалы можно скачать бесплатно. Без карты, регистрации и подписки.</div><div class="gty-stamp"><span><span class="b">6 пособий</span> для чтения и печати</span></div><div class="price-gty"><b>КАК ПОЛУЧИТЬ ФАЙЛЫ</b><br>Нажмите «тут оплата» — откроется новая вкладка со всем комплектом. Выберите нужный файл или скачайте всё сразу.</div><a class="price-cta" href="Payment.html" target="_blank" rel="noopener">тут оплата ↗</a><div class="payment-note">Скачивание бесплатно</div></div><div class="price-r"><h4>В комплекте</h4><ul><li><span class="i">01</span><span class="n">Программа на 12 недель<span>Четыре этапа и план действий.</span></span><span class="v"><abbr title="Portable Document Format — формат документов для чтения и печати">PDF</abbr></span></li><li><span class="i">02</span><span class="n">Питание и добавки<span>Памятка и вопросы для консультации.</span></span><span class="v"><abbr title="Portable Document Format — формат документов для чтения и печати">PDF</abbr></span></li><li><span class="i">03</span><span class="n">Осанка и внешний вид<span>Как сравнивать образы и замечать детали.</span></span><span class="v"><abbr title="Portable Document Format — формат документов для чтения и печати">PDF</abbr></span></li><li><span class="i">04</span><span class="n">Дневник сна<span>Записи о режиме и самочувствии.</span></span><span class="v"><abbr title="Portable Document Format — формат документов для чтения и печати">PDF</abbr></span></li><li><span class="i">05</span><span class="n">Чек-лист на каждый день<span>Короткий список дел с отметками.</span></span><span class="v"><abbr title="Portable Document Format — формат документов для чтения и печати">PDF</abbr></span></li><li><span class="i">06</span><span class="n">Трекер на 12 недель<span>Таблица для записей и подведения итогов.</span></span><span class="v"><abbr title="Portable Document Format — формат документов для чтения и печати">PDF</abbr></span></li></ul><p class="format-help"><abbr title="Portable Document Format — формат документов для чтения и печати">PDF</abbr> — формат документов: их можно открыть на телефоне, компьютере или распечатать.</p></div></div></div></section><section class="sec paper" id="faq"><div class="wrap"><div class="sec-head"><div class="sec-kick"><span class="idx">06.</span> Частые вопросы</div><div><h2 class="sec-h2">О чём вы хотели <span class="serif">спросить.</span></h2></div></div><div class="faq"><details open><summary><span class="n">01</span><span class="q">Мне уже 27. Есть смысл начинать?</span><span class="p">+</span></summary><div class="a">Да, если вы хотите заняться осанкой, сном и привычками. Возраст сам по себе не мешает вести записи и лучше понимать свой режим. Прибавку роста программа не обещает, а анкета не определяет, можете ли вы ещё вырасти.</div></details><details><summary><span class="n">02</span><span class="q">За материалы нужно платить?</span><span class="p">+</span></summary><div class="a">Нет. В разделе оплаты указана символическая стоимость, но весь комплект доступен бесплатно. Нажмите «тут оплата» и выберите файлы. Карта и регистрация не нужны.</div></details><details><summary><span class="n">03</span><span class="q">А если у меня болит спина?</span><span class="p">+</span></summary><div class="a">Начните с консультации врача. По анкете нельзя определить причину боли или подобрать лечение. Материалы помогут организовать записи и вопросы, но не заменят осмотр.</div></details></div></div></section><section class="final"><div class="wrap"><h2>Начните <span class="hl">с себя.</span></h2><p>Расскажите о своём росте, осанке и привычках. Анкета займёт около минуты. Результат появится сразу — без регистрации и писем на почту.</p><a class="btn-primary" href="Height Assessment.html">Пройти анкету <span class="arr">→</span></a></div></section></main><footer class="footer"><div class="wrap"><div class="footer-i"><a class="brand" href="index.html"><span class="sq"></span>APEX</a><div class="footer-links"><a href="Protocol.html">Программа</a><a href="Science.html">Как это работает</a><a href="Research.html">О расчёте</a><a href="Press.html">Полезное</a><a href="Contact.html">Помощь</a><a href="Payment.html">Оплата</a><a href="Privacy.html">Конфиденциальность</a><a href="Terms.html">Условия</a><a href="Refunds.html">Скачивание файлов</a></div><div>APEX · 2026</div></div><p class="footer-legal">APEX — программа о работе с осанкой, сном и повседневными привычками. Материалы не заменяют консультацию врача. Расчёт на сайте не гарантирует изменение роста.</p></div></footer><div class="mobile-cta" id="mcta" aria-hidden="true"><div class="price-line"><span class="p1">Программа APEX</span><span class="p2">Символическая</span></div><a href="Payment.html" target="_blank" rel="noopener">тут оплата ↗</a></div><script>(()=>{const bar=document.getElementById('mcta'),price=document.getElementById('price');function update(){const rect=price.getBoundingClientRect();const show=window.scrollY>innerHeight*.6&&(rect.top>innerHeight||rect.bottom<0);bar.classList.toggle('on',show);bar.setAttribute('aria-hidden',String(!show));bar.inert=!show;}window.addEventListener('scroll',update,{passive:true});update();})();</script></body></html>
