@@ -785,7 +785,7 @@ img,svg{display:block;max-width:100%}
           <div class="readout">
             <div class="ro"><div class="l">Вклад осанки</div><div class="v hot" id="mPosture">—</div></div>
             <div class="ro"><div class="l">Активность</div><div class="v gr" id="mBone">—</div></div>
-            <div class="ro"><div class="l">Вклад сна</div><div class="v" style="color:var(--yellow);text-shadow:0 1px 0 var(--ink)" id="mHgh">—</div></div>
+            <div class="ro"><div class="l">Вклад сна</div><div class="v" id="mHgh">—</div></div>
             <div class="ro"><div class="l">Рост родителей</div><div class="v hot" id="mGap">—</div></div>
           </div>
 
@@ -797,10 +797,10 @@ img,svg{display:block;max-width:100%}
           <div class="cta-box">
             <div>
               <div class="cta-title">Теперь всё <span class="serif">под рукой.</span></div>
-              <div class="cta-sub">Программа, памятки, чек-лист и трекер — шесть пособий в <abbr title="Portable Document Format — формат документов для чтения и печати">PDF</abbr>, формате документов для чтения и печати.<br>Стоимость: <b>Символическая</b>. Скачивание бесплатно.</div>
+              <div class="cta-sub">Программа, памятки, чек-лист и трекер — шесть пособий в <abbr title="Portable Document Format — формат документов для чтения и печати">PDF</abbr>, формате документов для чтения и печати.<br>Стоимость: <b>бесплатно</b>.</div>
             </div>
             <a class="cta-btn" href="Payment.html" target="_blank" rel="noopener">
-              <span>тут оплата ↗</span>
+              <span>Скачать материалы ↗</span>
               <small>Новая вкладка · Без платежа</small>
             </a>
           </div>
@@ -900,17 +900,19 @@ function computeProjection(){
   const sleep=+S.sleep||7;
   const posture=+S.posture||5;
   const dad=S.dad||176,mom=S.mom||164;
-  const postureInches=Math.max(0,(10-posture))*0.18;
+  // Учитывается только осанка: выпрямление спины меняет измеренный рост, но не длину костей.
+  // Не более 1,5 см; возраст, сон, активность и рост родителей в число не входят: по ответам анкеты рост костей определить нельзя.
+  const postureInches=Math.max(0,(10-posture))/9*1.5/2.54;
   const plateMult=plate==='open'?1.4:plate==='fusing'?0.85:0.55;
   const ageMult=age<18?1.3:age<23?1.1:age<30?0.9:age<40?0.7:0.55;
   const activityMult=activity==='ath'?1.2:activity==='mod'?1.0:0.7;
-  const boneInches=0.9*plateMult*ageMult*activityMult;
+  const boneInches=0;
   const sleepScore=Math.min(1,Math.max(0,(sleep-5)/3.5));
   const commitScore=commit/100;
-  const hghInches=0.75*sleepScore*commitScore*activityMult;
+  const hghInches=0;
   const mid=(dad+mom+(S.sex==='f'?-13:13))/2;
   const gapCm=Math.max(0,mid-h);
-  const geneticInches=Math.min(1.0,gapCm/2.54*0.18);
+  const geneticInches=0;
   const subtotal=postureInches+boneInches+hghInches+geneticInches;
   const commitFactor=0.55+commit*0.005;
   const total=subtotal*commitFactor;
@@ -947,9 +949,8 @@ function runAnalysis(){
     {pct:8,lbl:'Чтение параметров',msg:'данные получены',time:400},
     {pct:18,lbl:'Создание номера отчёта',msg:'номер создан',time:350},
     {pct:30,lbl:'Расчёт вклада осанки',msg:'фактор учтён',time:500},
-    {pct:44,lbl:"Расчёт фактора активности",msg:'расчёт выполнен',time:550},
-    {pct:58,lbl:'Расчёт фактора сна',msg:'фактор учтён',time:500},
-    {pct:72,lbl:'Сравнение семейных параметров',msg:'разница рассчитана',time:500},
+    {pct:50,lbl:'Применение поправки на регулярность',msg:'поправка учтена',time:550},
+    {pct:72,lbl:'Возраст, сон, активность, рост родителей',msg:'в число не входят',time:500},
     {pct:86,lbl:'Проверка ответов',msg:'ответы проверены',time:600},
     {pct:96,lbl:'Построение графика',msg:'12 недель на графике',time:400},
     {pct:100,lbl:'Расчёт завершён',msg:'ГОТОВО',time:300,done:true}
@@ -988,7 +989,7 @@ function showResult(){
   document.getElementById('rCurH').textContent=ruNum(currentCm)+' см';
   document.getElementById('rProjH').textContent=ruNum(projCm)+' см';
 
-  const floorCm=Math.max(20,currentCm-20);
+  const floorCm=0; // столбцы от нуля
   const rangeCm=Math.max(1,projCm-floorCm);
   const curPctVis=((currentCm-floorCm)/rangeCm)*100;
   setTimeout(()=>{
@@ -997,9 +998,9 @@ function showResult(){
   },120);
 
   document.getElementById('mPosture').textContent='+'+ruNum(p.posture*2.54)+' см';
-  document.getElementById('mBone').textContent='+'+ruNum(p.bone*2.54)+' см';
-  document.getElementById('mHgh').textContent='+'+ruNum(p.hgh*2.54)+' см';
-  document.getElementById('mGap').textContent='+'+ruNum(p.genetic*2.54)+' см';
+  document.getElementById('mBone').textContent='0 см';
+  document.getElementById('mHgh').textContent='0 см';
+  document.getElementById('mGap').textContent='0 см';
 
   const bdList=document.getElementById('bdList');
   const total=Math.max(0.01,p.posture+p.bone+p.hgh+p.genetic);
@@ -1011,7 +1012,7 @@ function showResult(){
   ];
   bdList.innerHTML=rows.map(r=>{
     const pct=(r.v/total)*100;
-    return `<div class="bd-row"><span class="bd-name">${r.n}</span><div class="bd-meter"><div class="bd-meter-fill ${r.c}" style="right:${100-pct}%"></div></div><span class="bd-pts">+${ruNum(r.v*2.54)} см</span></div>`;
+    return `<div class="bd-row"><span class="bd-name">${r.n}</span><div class="bd-meter"><div class="bd-meter-fill ${r.c}" style="right:${100-pct}%"></div></div><span class="bd-pts">${r.v>0?'+'+ruNum(r.v*2.54)+' см':'0 см'}</span></div>`;
   }).join('')+`<div class="bd-row total"><span class="bd-name">Поправка на регулярность (${Math.round(p.commitFactor*100)}%)</span><div class="bd-meter"><div class="bd-meter-fill ${p.commitFactor>=1?'g':p.commitFactor>=.8?'a':''}" style="right:${100-Math.min(100,p.commitFactor*80)}%"></div></div><span class="bd-pts">×${p.commitFactor.toLocaleString('ru-RU',{maximumFractionDigits:2})}</span></div>`;
 
   drawChart(p.weeklyCm,currentCm);
